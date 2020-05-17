@@ -19,7 +19,7 @@ for channel in channels:
     id = channel['url'].split('/')[-1] or channel['url'].split('/')[-2]
     name = channel['name']
 
-    videos = upcoming_video.fetch_by(id)
+    videos = upcoming_video.fetch_by_channel(id)
     output[name] = [upcoming_video.dump(video) for video in videos]
 
 print(json.dumps(output, indent=2, ensure_ascii=False))

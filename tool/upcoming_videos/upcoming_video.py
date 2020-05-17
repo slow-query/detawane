@@ -31,7 +31,7 @@ def dump(video):
         }
     }
 
-def fetch_by(channel_id):
+def fetch_by_channel(channel_id):
     youtube_client = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
 
     res = youtube_client.search().list(part='id', channelId=channel_id, eventType='upcoming', type='video').execute()
@@ -53,5 +53,5 @@ if __name__ == '__main__':
     parser.add_argument('channel_id', type=str, help='channel id')
     args = parser.parse_args()
 
-    videos = fetch_by(args.channel_id)
+    videos = fetch_by_channel(args.channel_id)
     print(json.dumps([dump(video) for video in videos], indent=2, ensure_ascii=False))

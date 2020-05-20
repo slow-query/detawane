@@ -12,5 +12,5 @@ class ChatWatcher:
         )
         self.live_chat = LiveChat(video_id = video.id, callback = message_processor, processor = CompatibleProcessor())
 
-    def terminate(self):
+    def __del__(self):
         self.live_chat.terminate()

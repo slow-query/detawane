@@ -20,8 +20,7 @@ for video in VideoList.load(args.file):
   print('{}の「{}」の監視を開始しました。'.format(video.channel.owner_name, video.title))
 
 def terminate(num, frame):
-    for watcher in watchers:
-        watcher.terminate()
+    watchers.clear()
     sys.exit()
 
 signal.signal(signal.SIGINT, terminate)

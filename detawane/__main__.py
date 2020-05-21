@@ -17,7 +17,7 @@ for video in VideoList.load(args.file):
   watchers.append(
       ChatWatcher(video = video, output_class = TwitterOutput)
   )
-  print('{}の「{}」の監視を開始しました。'.format(video.channel.owner_name, video.title))
+  print('{}の「{}」の監視を開始しました。'.format(video.channel.owner_name, video.title), flush=True)
 
 def terminate(num, frame):
     watchers.clear()

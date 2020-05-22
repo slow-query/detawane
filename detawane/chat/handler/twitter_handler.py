@@ -1,7 +1,7 @@
 import os
 import tweepy
-from .base_output import BaseOutput
-from ..logger import get_local_logger
+from .base_handler import BaseHandler
+from ...logger import get_local_logger
 
 class Client:
     def __init__(self):
@@ -13,7 +13,7 @@ class Client:
     def tweet(self, text):
         self.api.update_status(text)
 
-class TwitterOutput(BaseOutput):
+class TwitterHandler(BaseHandler):
     CLIENT = Client()
 
     def __init__(self, video):

@@ -24,5 +24,6 @@ class TwitterHandler(BaseHandler):
         super().__init__(video)
 
     def __call__(self, message):
-        text = f"{self.video.channel.owner_name}が「{self.video.title}」に現れました。 {self.video.url}"
+        text = f"{self.video.channel.owner_name}が「{self.video.title}」に現れました。" \
+               f"{self.video.url}"
         self.CLIENT.tweet(text)

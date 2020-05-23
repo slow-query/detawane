@@ -2,7 +2,6 @@
 # NOTE: Youtube Data API v3の1日のリクエスト上限値が小さいため100件程度で上限に達する。
 
 import argparse
-import os
 import json
 import upcoming_video
 

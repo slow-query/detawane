@@ -11,14 +11,10 @@ class Processor:
         self.handlers.clear()
 
     def add_filter(self, filter_class):
-        self.filters.append(
-            filter_class(self.video)
-        )
+        self.filters.append(filter_class(self.video))
 
     def add_handler(self, handler_class):
-        self.handlers.append(
-            handler_class(self.video)
-        )
+        self.handlers.append(handler_class(self.video))
 
     def process(self):
         messages = self.adapter.get_messages()

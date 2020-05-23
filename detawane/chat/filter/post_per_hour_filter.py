@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from .base_filter import BaseFilter
 
+
 class PostPerHourFilter(BaseFilter):
     def __init__(self, video):
         super().__init__(video)

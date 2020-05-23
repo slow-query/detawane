@@ -6,5 +6,3 @@ class Message:
         self.published_at = published_at
         self.is_owner = is_owner
         self.is_sponsor = is_sponsor
-
-

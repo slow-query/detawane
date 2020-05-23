@@ -5,6 +5,7 @@ from .filter.post_per_hour_filter import PostPerHourFilter
 from .handler.stdout_handler import StdoutHandler
 from .handler.twitter_handler import TwitterHandler
 
+
 def build_processor(video):
     processor = Processor(video, Pychat)
     processor.add_filter(ChannelOwnerFilter)

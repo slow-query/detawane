@@ -5,8 +5,8 @@ class Processor:
         self.filters = []
         self.handlers = []
 
-    def __del__(self):
-        del self.adapter
+    def terminate(self):
+        self.adapter.terminate()
         self.filters.clear()
         self.handlers.clear()
 

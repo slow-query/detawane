@@ -9,7 +9,7 @@ class Pychat:
     def __init__(self, video):
         self.live_chat = LiveChat(video_id=video.id, processor=CompatibleProcessor())
 
-    def __del__(self):
+    def terminate(self):
         self.live_chat.terminate()
 
     def get_messages(self):

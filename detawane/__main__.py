@@ -1,5 +1,4 @@
 import signal
-import sys
 import time
 from argparse import ArgumentParser
 
@@ -13,6 +12,7 @@ args = parser.parse_args()
 
 logger = get_local_logger(__name__)
 
+is_running = True
 processors = []
 for video in VideoList.load(args.file):
     processors.append(build_processor(video))
@@ -20,14 +20,17 @@ for video in VideoList.load(args.file):
 
 
 def terminate(num, frame):
-    processors.clear()
-    sys.exit()
+    global is_running
+    is_running = False
 
 
 signal.signal(signal.SIGINT, terminate)
 signal.signal(signal.SIGTERM, terminate)
 
-while True:
+while is_running:
     for processor in processors:
         processor.process()
     time.sleep(5)
+
+for processor in processors:
+    processor.terminate()

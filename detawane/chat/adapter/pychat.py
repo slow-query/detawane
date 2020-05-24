@@ -1,5 +1,7 @@
 from datetime import datetime
-from pytchat import LiveChat, CompatibleProcessor
+
+from pytchat import CompatibleProcessor, LiveChat
+
 from ..message import Message
 
 

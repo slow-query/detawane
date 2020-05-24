@@ -1,10 +1,11 @@
-import sys
 import signal
+import sys
 import time
-from .logger import get_local_logger
 from argparse import ArgumentParser
-from .video_list import VideoList
+
 from .chat import build_processor
+from .logger import get_local_logger
+from .video_list import VideoList
 
 parser = ArgumentParser()
 parser.add_argument("file", type=str, help="channel list file")

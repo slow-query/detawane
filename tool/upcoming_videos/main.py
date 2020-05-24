@@ -3,6 +3,7 @@
 
 import argparse
 import json
+
 import upcoming_video
 
 parser = argparse.ArgumentParser()

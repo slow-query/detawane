@@ -1,9 +1,9 @@
-from .processor import Processor
 from .adapter.pychat import Pychat
 from .filter.channel_owner_filter import ChannelOwnerFilter
 from .filter.post_per_hour_filter import PostPerHourFilter
 from .handler.stdout_handler import StdoutHandler
 from .handler.twitter_handler import TwitterHandler
+from .processor import Processor
 
 
 def build_processor(video):

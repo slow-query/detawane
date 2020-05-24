@@ -1,4 +1,4 @@
-from logging import INFO, getLogger, StreamHandler
+from logging import INFO, StreamHandler, getLogger
 
 
 def get_local_logger(module_name, log_level=INFO):

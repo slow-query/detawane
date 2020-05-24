@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 import argparse
-import os
 import json
+import os
 from datetime import datetime
+
 from googleapiclient.discovery import build
 
 YOUTUBE_API_KEY = os.environ["YOUTUBE_API_KEY"]

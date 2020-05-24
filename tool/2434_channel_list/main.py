@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import json
+
 from pyquery import PyQuery
 
 query = PyQuery("https://nijisanji.ichikara.co.jp/member/")

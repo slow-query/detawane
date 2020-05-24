@@ -33,4 +33,6 @@ while is_running:
     time.sleep(5)
 
 for processor in processors:
+    video = processor.video
     processor.terminate()
+    logger.info(f"{video.channel.owner_name}の「{video.title}」の監視を終了しました。")

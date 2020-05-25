@@ -7,6 +7,7 @@
         "id": "ここをかえる",
         "title": "動作テストなのであとで消す",
         "start_at": "2021-02-27 14:00:00+00:00",
+        "chat_id": "YoutubeAPIを使う場合はここもかえる",
         "channel": {
           "id": "UC2bC-hTfrZHFOMn8t0-OqQw",
           "title": "自分"

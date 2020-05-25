@@ -17,11 +17,12 @@ class Channel:
 
 
 class Video:
-    def __init__(self, channel, id, title, start_at):
+    def __init__(self, channel, id, title, start_at, chat_id):
         self.channel = channel
         self.id = id
         self.title = title
         self.start_at = start_at
+        self.chat_id = chat_id
 
 
 def dump(video):
@@ -29,6 +30,7 @@ def dump(video):
         "id": video.id,
         "title": video.title,
         "start_at": str(video.start_at),
+        "chat_id": video.chat_id,
         "channel": {"id": video.channel.id, "title": video.channel.title},
     }
 
@@ -54,10 +56,11 @@ def fetch_by_channel(channel_id):
             res["items"][0]["liveStreamingDetails"]["scheduledStartTime"],
             "%Y-%m-%dT%H:%M:%S%z",
         )
+        chat_id = res["items"][0]["liveStreamingDetails"]["activeLiveChatId"]
         title = res["items"][0]["snippet"]["title"]
         channel_title = res["items"][0]["snippet"]["channelTitle"]
         channel = Channel(channel_id, channel_title)
-        videos.append(Video(channel, video_id, title, start_at))
+        videos.append(Video(channel, video_id, title, start_at, chat_id))
 
     return videos
 

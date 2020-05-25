@@ -1,14 +1,26 @@
+from ..logger import get_local_logger
+
+
 class Processor:
-    def __init__(self, video, adapter):
+    def __init__(self, video, adapter, logger=get_local_logger(__name__)):
         self.video = video
         self.adapter = adapter(video)
         self.filters = []
         self.handlers = []
+        self._logger = logger
 
-    def terminate(self):
+    def initialize(self):
+        self._logger.info(
+            f"{self.video.channel.owner_name}の「{self.video.title}」の監視を開始しました。"
+        )
+
+    def finalize(self):
         self.adapter.terminate()
         self.filters.clear()
         self.handlers.clear()
+        self._logger.info(
+            f"{self.video.channel.owner_name}の「{self.video.title}」の監視を終了しました。"
+        )
 
     def add_filter(self, filter_class):
         self.filters.append(filter_class(self.video))

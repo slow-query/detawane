@@ -1,12 +1,8 @@
-import signal
-import time
 from argparse import ArgumentParser
 
 from .chat import build_processor
-from .logger import get_local_logger
+from .cli.runner import Runner
 from .video_list import VideoList
-
-MAX_PROCESSING_TIME = 5
 
 parser = ArgumentParser()
 parser.add_argument(
@@ -22,31 +18,10 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-logger = get_local_logger(__name__)
-
-is_running = True
 processors = []
 for video in VideoList.load(args.file):
     processors.append(build_processor(args.adapter, video))
-    logger.info(f"{video.channel.owner_name}の「{video.title}」の監視を開始しました。")
 
 
-def terminate(num, frame):
-    global is_running
-    is_running = False
-
-
-signal.signal(signal.SIGINT, terminate)
-signal.signal(signal.SIGTERM, terminate)
-
-while is_running:
-    time_mark = time.time()
-    for processor in processors:
-        processor.process()
-    remaining_time = MAX_PROCESSING_TIME - (time.time() - time_mark)
-    time.sleep(remaining_time if remaining_time > 0 else 0)
-
-for processor in processors:
-    video = processor.video
-    processor.terminate()
-    logger.info(f"{video.channel.owner_name}の「{video.title}」の監視を終了しました。")
+runner = Runner()
+runner.run(processors)

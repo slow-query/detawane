@@ -6,6 +6,8 @@ from .chat import build_processor
 from .logger import get_local_logger
 from .video_list import VideoList
 
+MAX_PROCESSING_TIME = 5
+
 parser = ArgumentParser()
 parser.add_argument("file", type=str, help="channel list file")
 args = parser.parse_args()
@@ -28,9 +30,11 @@ signal.signal(signal.SIGINT, terminate)
 signal.signal(signal.SIGTERM, terminate)
 
 while is_running:
+    time_mark = time.time()
     for processor in processors:
         processor.process()
-    time.sleep(5)
+    remaining_time = MAX_PROCESSING_TIME - (time.time() - time_mark)
+    time.sleep(remaining_time if remaining_time > 0 else 0)
 
 for processor in processors:
     video = processor.video

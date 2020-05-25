@@ -56,7 +56,8 @@ def fetch_by_channel(channel_id):
             res["items"][0]["liveStreamingDetails"]["scheduledStartTime"],
             "%Y-%m-%dT%H:%M:%S%z",
         )
-        chat_id = res["items"][0]["liveStreamingDetails"]["activeLiveChatId"]
+        # NOTE: 配信が終了しているとactiveLiveChatIdが削除されるため.getを使っている
+        chat_id = res["items"][0]["liveStreamingDetails"].get("activeLiveChatId")
         title = res["items"][0]["snippet"]["title"]
         channel_title = res["items"][0]["snippet"]["channelTitle"]
         channel = Channel(channel_id, channel_title)

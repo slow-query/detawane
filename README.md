@@ -20,9 +20,11 @@ pip install pre-commit
 pre-commit install
 ```
 
-### Deploy
+### Run
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+```shell
+python -m detawane ./your/file/path
+```
 
 ## Great thanks
 

@@ -9,7 +9,17 @@ from .video_list import VideoList
 MAX_PROCESSING_TIME = 5
 
 parser = ArgumentParser()
-parser.add_argument("file", type=str, help="channel list file")
+parser.add_argument(
+    "--file", "-f", type=str, required=True, help="specify channel list file"
+)
+parser.add_argument(
+    "--adapter",
+    "-a",
+    type=str,
+    default="pychat",
+    metavar="ADAPTER_TYPE",
+    help="select either pychat or api",
+)
 args = parser.parse_args()
 
 logger = get_local_logger(__name__)
@@ -17,7 +27,7 @@ logger = get_local_logger(__name__)
 is_running = True
 processors = []
 for video in VideoList.load(args.file):
-    processors.append(build_processor(video))
+    processors.append(build_processor(args.adapter, video))
     logger.info(f"{video.channel.owner_name}の「{video.title}」の監視を開始しました。")
 
 

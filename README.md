@@ -23,7 +23,7 @@ pre-commit install
 ### Run
 
 ```shell
-python -m detawane ./your/file/path
+python -m detawane --file ./your/file/path
 ```
 
 ## Great thanks

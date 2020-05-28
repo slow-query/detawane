@@ -2,17 +2,17 @@ import os
 import queue
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
 
 from googleapiclient.discovery import build
 
-from ..message import Message
+from .parser.youtube_parser import YoutubeParser
 
 
 class YoutubeAPI:
-    def __init__(self, video):
+    def __init__(self, video, parser=YoutubeParser):
         self._is_active = True
         self.video = video
+        self._parser = parser
         self._client = build(
             "youtube", "v3", developerKey=os.environ["YOUTUBE_API_KEY"]
         )
@@ -25,33 +25,7 @@ class YoutubeAPI:
         self._is_active = False
 
     def get_messages(self):
-        return [] if self._buffer.empty() else self._parse(self._buffer.get())
-
-    def _parse(self, chat_data):
-        messages = []
-        chat_data_size = len(chat_data["items"])
-        if chat_data_size == 0:
-            return messages
-
-        for raw_message in chat_data["items"]:
-            snippet = raw_message.get("snippet")
-            if not snippet:
-                continue
-            author = raw_message["authorDetails"]
-            messages.append(
-                Message(
-                    name=author["displayName"],
-                    channel_id=author["channelId"],
-                    text=snippet["displayMessage"],
-                    published_at=datetime.strptime(
-                        snippet["publishedAt"], "%Y-%m-%dT%H:%M:%S.%fZ"
-                    ),
-                    is_owner=author["isChatOwner"],
-                    is_sponsor=author["isChatSponsor"],
-                )
-            )
-
-        return messages
+        return [] if self._buffer.empty() else self._parser(self._buffer.get())
 
     def _listen(self):
         next_page_token = None

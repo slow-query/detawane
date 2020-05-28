@@ -1,8 +1,10 @@
+import json
 from argparse import ArgumentParser
 
+from ..channel import Channel
 from ..chat.adapter.pychat import Pychat
 from ..chat.adapter.youtube_api import YoutubeAPI
-from .video_list import VideoList
+from ..video import Video
 
 
 class Config:
@@ -30,7 +32,18 @@ class Config:
         return parser.parse_args()
 
     def _load_videos(self, file):
-        return VideoList.load(file)
+        videos = []
+        for channel in json.load(open(file, "r")):
+            for video in channel["videos"]:
+                videos.append(
+                    Video(
+                        channel=Channel(id=channel["id"], owner_name=channel["name"]),
+                        id=video["id"],
+                        title=video["title"],
+                        chat_id=video["chat_id"],
+                    )
+                )
+        return videos
 
     def _fetch_adapter(self, adapter_type):
         return self.ADAPTER_TABLES[adapter_type]

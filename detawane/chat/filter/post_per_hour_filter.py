@@ -9,8 +9,8 @@ class PostPerHourFilter(BaseFilter):
         self.store = {}
 
     def _is_selected(self, message):
-        last_post_at = self.store.get(message.name) or datetime.fromtimestamp(0)
+        last_post_at = self.store.get(message.channel_id) or datetime.fromtimestamp(0)
         if (message.published_at - last_post_at) > timedelta(hours=1):
-            self.store[message.name] = message.published_at
+            self.store[message.channel_id] = message.published_at
             return True
         return False

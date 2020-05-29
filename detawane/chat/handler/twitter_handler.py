@@ -20,14 +20,13 @@ class Client:
 
 
 class TwitterHandler(BaseHandler):
-    CLIENT = Client()
-
     def __init__(self, video):
         super().__init__(video)
+        self._client = Client()
 
     def __call__(self, message):
         text = (
             f"{self.video.channel.owner_name}が「{self.video.title}」に現れました。"
             f"{self.video.url}"
         )
-        self.CLIENT.tweet(text)
+        self._client.tweet(text)

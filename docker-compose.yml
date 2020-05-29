@@ -7,3 +7,6 @@ services:
       TWITTER_CONSUMER_SECRET: ${TWITTER_CONSUMER_SECRET}
       TWITTER_ACCESS_KEY: ${TWITTER_ACCESS_KEY}
       TWITTER_ACCESS_SECRET: ${TWITTER_ACCESS_SECRET}
+  test:
+    build: .
+    command: python -m unittest

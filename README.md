@@ -1,6 +1,6 @@
 # Detawane
 
-[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE) [![CI](https://github.com/slow-query/detawane/workflows/CI/badge.svg)](https://github.com/slow-query/detawane/actions?query=workflow%3ACI)
 
 Detawane is application that notify twitter when channel owner post message on live chat (for 2434 free chat).
 

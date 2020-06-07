@@ -411,7 +411,18 @@
   {
     "id": "UC-o-E6I3IC2q8sAoAuM6Umg",
     "name": "奈羅花",
-    "videos": []
+    "videos": [
+      {
+        "id": "LbPvINRBpaQ",
+        "title": "【 ふりーちゃっと 】",
+        "start_at": "2022-06-04 01:40:00+00:00",
+        "chat_id": "Cg0KC0xiUHZJTlJCcGFRKicKGFVDLW8tRTZJM0lDMnE4c0FvQXVNNlVtZxILTGJQdklOUkJwYVE",
+        "channel": {
+          "id": "UC-o-E6I3IC2q8sAoAuM6Umg",
+          "title": "奈羅花 - Naraka -"
+        }
+      }
+	]
   },
   {
     "id": "UCmUjjW5zF1MMOhYUwwwQv9Q",

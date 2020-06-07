@@ -36,3 +36,6 @@ class Processor:
         for handler in self.handlers:
             for message in messages:
                 handler(message)
+
+    def is_expired(self, time):
+        return self.video.start_at.timestamp() < time

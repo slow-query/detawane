@@ -22,6 +22,9 @@ class Runner:
             time_mark = time.time()
             for processor in processors:
                 processor.process()
+            for processor in [p for p in processors if p.is_expired(time.time())]:
+                processors.remove(processor)
+                processor.finalize()
             remaining_time = self.MAX_PROCESSING_TIME - (time.time() - time_mark)
             time.sleep(remaining_time if remaining_time > 0 else 0)
 

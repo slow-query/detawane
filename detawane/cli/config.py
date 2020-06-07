@@ -1,5 +1,6 @@
 import json
 from argparse import ArgumentParser
+from datetime import datetime
 
 from ..channel import Channel
 from ..chat.adapter.pychat import Pychat
@@ -41,6 +42,9 @@ class Config:
                         id=video["id"],
                         title=video["title"],
                         chat_id=video["chat_id"],
+                        start_at=datetime.strptime(
+                            video["start_at"], "%Y-%m-%d %H:%M:%S%z"
+                        ),
                     )
                 )
         return videos

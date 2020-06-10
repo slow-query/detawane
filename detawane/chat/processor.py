@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from ..logger import get_local_logger
 
 
@@ -37,5 +39,5 @@ class Processor:
             for message in messages:
                 handler(message)
 
-    def is_expired(self, time):
-        return self.video.start_at.timestamp() < time
+    def is_expired(self, time=datetime.now()):
+        return self.video.start_at.timestamp() < time.timestamp()

@@ -1,4 +1,3 @@
-import time
 from datetime import datetime
 from unittest import TestCase, skip
 from unittest.mock import Mock
@@ -8,7 +7,7 @@ from detawane.chat.processor import Processor
 
 class ProcessorTestCase(TestCase):
     def to_time(self, str):
-        return time.mktime(time.strptime(str, "%Y-%m-%d %H:%M:%S"))
+        return datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
 
     def setUp(self):
         video = Mock()
@@ -70,7 +69,7 @@ class ProcessorTestCase(TestCase):
 
     def test_is_expired(self):
         self.processor.video.start_at = datetime.strptime(
-            "2020-06-07 10:00:00", "%Y-%m-%d %H:%M:%S"
+            "2020-06-07 10:00:00+0900", "%Y-%m-%d %H:%M:%S%z"
         )
         self.assertTrue(self.processor.is_expired(self.to_time("2020-06-07 10:00:01")))
         self.assertFalse(self.processor.is_expired(self.to_time("2020-06-07 9:59:59")))

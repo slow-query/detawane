@@ -20,5 +20,5 @@ class SentryProcessor:
     def process(self):
         pass
 
-    def is_expired(self, time):
+    def is_expired(self, time=None):
         return False

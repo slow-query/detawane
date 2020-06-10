@@ -1,5 +1,7 @@
 FROM python:3.8.3
 
+ENV TZ=Asia/Tokyo
+
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./

@@ -1,10 +1,10 @@
 import os
 import queue
-import time
 from concurrent.futures import ThreadPoolExecutor
 
 from googleapiclient.discovery import build
 
+from ...time_keeper import keep_time
 from .parser.youtube_parser import YoutubeParser
 
 
@@ -31,22 +31,20 @@ class YoutubeAPI:
         next_page_token = None
 
         while self._is_active:
-            time_mark = time.time()
-            res = (
-                self._client.liveChatMessages()
-                .list(
-                    liveChatId=self.video.chat_id,
-                    part="snippet,authorDetails",
-                    pageToken=next_page_token,
+            with keep_time() as tk:
+                res = (
+                    self._client.liveChatMessages()
+                    .list(
+                        liveChatId=self.video.chat_id,
+                        part="snippet,authorDetails",
+                        pageToken=next_page_token,
+                    )
+                    .execute()
                 )
-                .execute()
-            )
 
-            cool_time_ms = res["pollingIntervalMillis"] or 10_000
-            cool_time = cool_time_ms / 1_000
-            next_page_token = res["nextPageToken"]
+                cool_time_ms = res["pollingIntervalMillis"] or 10_000
+                cool_time = cool_time_ms / 1_000
+                tk.set_waiting_second(cool_time)
 
-            self._buffer.put(res)
-
-            remaining_time = cool_time - (time.time() - time_mark)
-            time.sleep(remaining_time if remaining_time > 0 else 0)
+                next_page_token = res["nextPageToken"]
+                self._buffer.put(res)

@@ -1,6 +1,8 @@
 import signal
 import time
 
+from ..time_keeper import keep_time
+
 
 class Runner:
     MAX_PROCESSING_TIME = 5
@@ -19,14 +21,12 @@ class Runner:
             processor.initialize()
 
         while self._is_running:
-            time_mark = time.time()
-            for processor in processors:
-                processor.process()
-            for processor in [p for p in processors if p.is_expired(time.time())]:
-                processors.remove(processor)
-                processor.finalize()
-            remaining_time = self.MAX_PROCESSING_TIME - (time.time() - time_mark)
-            time.sleep(remaining_time if remaining_time > 0 else 0)
+            with keep_time(self.MAX_PROCESSING_TIME):
+                for processor in processors:
+                    processor.process()
+                for processor in [p for p in processors if p.is_expired(time.time())]:
+                    processors.remove(processor)
+                    processor.finalize()
 
         for processor in processors:
             processor.finalize()

@@ -2,11 +2,12 @@ import os
 
 import tweepy
 
+from ...logger import get_local_logger
 from .base_handler import BaseHandler
 
 
 class Client:
-    def __init__(self):
+    def __init__(self, logger=get_local_logger(__name__)):
         auth = tweepy.OAuthHandler(
             os.environ["TWITTER_CONSUMER_KEY"], os.environ["TWITTER_CONSUMER_SECRET"]
         )
@@ -14,9 +15,13 @@ class Client:
             os.environ["TWITTER_ACCESS_KEY"], os.environ["TWITTER_ACCESS_SECRET"]
         )
         self.api = tweepy.API(auth)
+        self._logger = logger
 
     def tweet(self, text):
-        self.api.update_status(text)
+        try:
+            self.api.update_status(text)
+        except tweepy.error.TweepError as e:
+            self._logger.error(f"ツイートに失敗しました。{e}")
 
 
 class TwitterHandler(BaseHandler):

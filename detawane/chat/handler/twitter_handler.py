@@ -25,8 +25,9 @@ class TwitterHandler(BaseHandler):
         self._client = Client()
 
     def __call__(self, message):
+        at = message.published_at_jst().strftime("%Y-%m-%d %H:%M:%S")
         text = (
-            f"{self.video.channel.owner_name}が「{self.video.title}」に現れました。"
+            f"{at}、「{self.video.title}」に{self.video.channel.owner_name}が現れました。"
             f"{self.video.url}"
         )
         self._client.tweet(text)
